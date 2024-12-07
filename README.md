@@ -38,7 +38,7 @@ Pour vérifier qu'un événement d'échec de connexion (Event ID 4625) est lié 
 
 ## Analyse des Échecs de Connexion Réseau
 
-![Échecs de Connexion Réseau par nom de compte](images/StatsHoneyPot.png)
+![Échecs de Connexion Réseau par nom de compte](StatsHoneyPot.png)
 
 ### Tableau des Comptes les Plus Ciblés
 
@@ -65,7 +65,7 @@ Cela explique la différence entre les résultats visibles sur la carte et le ta
 
 ### Image de la Carte des Tentatives de Connexion Échouées (Logon Type 3)
 
-![Carte des attaques Logon Type 3](images/HoneyPotMap06to0712.png)
+![Carte des attaques Logon Type 3](HoneyPotMap06to0712.png)
 
 *Description de l'image : La carte illustre les emplacements géographiques des adresses IP sources des tentatives de connexion échouées avec Logon Type 3. Les points rouges indiquent les zones avec le plus grand nombre de tentatives.*
 
