@@ -38,20 +38,18 @@ Pour vérifier qu'un événement d'échec de connexion (Event ID 4625) est lié 
 
 ## Analyse des Échecs de Connexion Réseau
 
-- **Total des tentatives de connexion échouées** : *300*.
-- **Comptes ciblés** :
-    - Liste des noms de comptes les plus fréquemment ciblés :
-        - `ADMINISTRATOR`
-        - `guest`
+![Échecs de Connexion Réseau par nom de compte](images/StatsHoneyPot.png)
+
 ### Tableau des Comptes les Plus Ciblés
 
 | Rang | Compte        | Nombre de Tentatives |
 |------|---------------|----------------------|
-| 1    | admin         | *[Nombre]*           |
-| 2    | administrator | *[Nombre]*           |
-| 3    | guest         | *[Nombre]*           |
-| 4    | user          | *[Nombre]*           |
-| 5    | test          | *[Nombre]*           |
+| 1    | \administrator| *3120*               |
+| 2    | \ADMINISTRATOR| *3060*               |
+| 3    | \ADMIN        | *2490*               |
+| 4    | \USER         | *470*                |
+| 5    | \Administrator| *347*                |
+
 
 ## Création de la Carte des Attaques
 
@@ -60,10 +58,14 @@ Pour vérifier qu'un événement d'échec de connexion (Event ID 4625) est lié 
     - Extraction des adresses IP sources des logs.
     - Géolocalisation des adresses IP pour obtenir les emplacements approximatifs.
     - Visualisation des données sur une carte pour représenter les origines géographiques des attaques.
+ 
+La carte des origines géographiques des attaques n'a pas pu être entièrement remplie en raison des limites imposées par l'API utilisée pour la géolocalisation des adresses IP. 
+
+Cela explique la différence entre les résultats visibles sur la carte et le tableau des comptes ciblés. Le tableau, en revanche, fournit une vue exhaustive des tentatives de connexion grâce à l'analyse directe des logs de sécurité sans contrainte de quotas API.
 
 ### Image de la Carte des Tentatives de Connexion Échouées (Logon Type 3)
 
-![Carte des attaques Logon Type 3](images/carte_attaques_logon_type_3.png)
+![Carte des attaques Logon Type 3](images/HoneyPotMap06to0712.png)
 
 *Description de l'image : La carte illustre les emplacements géographiques des adresses IP sources des tentatives de connexion échouées avec Logon Type 3. Les points rouges indiquent les zones avec le plus grand nombre de tentatives.*
 
@@ -75,36 +77,14 @@ Pour vérifier qu'un événement d'échec de connexion (Event ID 4625) est lié 
     - Limitation de l'accès aux ports sensibles (par exemple, SMB port 445) aux adresses IP de confiance uniquement.
     - Blocage de l'accès public aux services non nécessaires.
 
-### 2. Désactiver les Comptes par Défaut
-
-- **Désactivation du compte `Guest`** :
-
-    ```powershell
-    net user Guest /active:no
-    ```
-
-- **Renommage du compte `Administrator`** :
-
-    ```powershell
-    wmic useraccount where name='Administrator' rename 'VerySecureAdmin'
-    ```
-
-### 3. Désactiver les Connexions Anonymes
-
-- **Modification des politiques de sécurité pour Restreindre les Connexions Anonymes**
-
-- **Impact** :
-    - Empêche les utilisateurs non authentifiés d'accéder aux ressources partagées.
-    - Réduit le risque d'énumération des comptes et des partages.
-
-### 4. Mettre en Place des Politiques de Mots de Passe Forts
+### 2. Mettre en Place des Politiques de Mots de Passe Forts
 
 - **Actions** :
     - Exiger des mots de passe complexes (longueur minimale, utilisation de lettres majuscules, minuscules, chiffres, symboles).
     - Mettre en place une expiration régulière des mots de passe.
     - Désactiver les comptes avec des mots de passe faibles ou par défaut.
 
-### 5. Mettre à Jour le Système
+### 3. Mettre à Jour le Système
 
 - **Installer les Mises à Jour de Sécurité** :
     - S'assurer que le système d'exploitation et les logiciels installés sont à jour avec les derniers correctifs de sécurité.
